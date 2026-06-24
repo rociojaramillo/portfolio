@@ -7,6 +7,7 @@
     <title>Rocio Jaramillo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -168,8 +169,8 @@
         
         <div class="contact-wrapper" style="display: flex; flex-wrap: wrap; gap: 40px; margin-top: 30px; justify-content: center; align-items: flex-start;">
             
-            <form action="https://formspree.io/f/mnjknepa" method="POST" class="contact-form" style="flex: 1; min-width: 300px; max-width: 500px; display: flex; flex-direction: column; gap: 15px;">
-                <input type="hidden" name="_next" value="https://rociojaramillo.netlify.app/#contacto">
+            <form id="contact-form" action="https://formspree.io/f/mnjknepa" method="POST" class="contact-form" style="flex: 1; min-width: 300px; max-width: 500px; display: flex; flex-direction: column; gap: 15px;">
+
                 <div class="form-group" style="display: flex; flex-direction: column; gap: 5px;">
                     <label for="name" style="color: #b4adc7; font-size: 0.9rem;">Nombre Completo</label>
                     <input type="text" id="name" name="name" placeholder="Nombre" required class="form-input">
@@ -199,7 +200,7 @@
                 <div class="cv-download-box" style="text-align: center; padding: 10px 0;">
                     <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: #ffffff;">¿Querés ver mi perfil completo?</h3>
                     <a href="CV_Rocio_Jaramillo.pdf" download class="btn-download-cv">
-                        <i class="fas fa-file-pdf"></i> Descargar Currículum Vitae
+                        <i class="fas fa-file-pdf"></i> Descargar CV
                     </a>
                 </div>
                 
@@ -268,6 +269,46 @@
             contenedor.querySelectorAll('.btn-playlist-item').forEach(b => b.classList.remove('active'));
             boton.classList.add('active');
         }
+
+        const formulario = document.getElementById('contact-form');
+
+formulario.addEventListener('submit', async (event) => {
+    event.preventDefault(); 
+    
+    const formData = new FormData(formulario);
+    
+
+    const response = await fetch(formulario.action, {
+        method: formulario.method,
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        formulario.reset(); 
+        return Swal.fire({
+            title: "Mensaje enviado correctamente",
+            text: "¡Gracias por contactarte!",
+            icon: "success",
+            background: "#090711",
+            color: "#f3f0ff",
+            confirmButtonColor: "#00d2ff",
+            iconColor: "#00d2ff"
+        });
+    } else {
+        return Swal.fire({
+            title: "Hubo un error",
+            text: "Por favor intentá de nuevo más tarde.",
+            icon: "error",
+            background: "#090711",
+            color: "#f3f0ff",
+            confirmButtonColor: "#9b59b6",
+            iconColor: "#9b59b6"
+        });
+    }
+});
     </script>
 </body>
 </html>
