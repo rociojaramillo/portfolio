@@ -80,19 +80,19 @@
             
             <div class="project-card" style="flex: 1; min-width: 300px; max-width: 550px;">
                 <div class="project-image" style="display: flex; flex-direction: column; gap: 15px;">
-                    <video id="videoPlayer" controls poster="AppointmentFlow.png" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+                    <video controls poster="AppointmentFlow.png" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
                         <source src="DatosCorrectos.mp4" type="video/mp4">
                         Tu navegador no soporta videos.
                     </video>
                     
                     <div class="video-controls-playlist" style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
-                        <button onclick="cambiarVideo('DatosCorrectos.mp4')" class="btn-playlist-item active">
+                        <button onclick="cambiarVideo('DatosCorrectos.mp4', this)" class="btn-playlist-item active">
                             <i class="fas fa-check-circle"></i> <span>Demo: Flujo Exitoso</span>
                         </button>
-                        <button onclick="cambiarVideo('DatosIncorrectos.mp4')" class="btn-playlist-item">
+                        <button onclick="cambiarVideo('DatosIncorrectos.mp4', this)" class="btn-playlist-item">
                             <i class="fas fa-exclamation-triangle"></i> <span>Demo: Validaciones de Errores</span>
                         </button>
-                        <button onclick="cambiarVideo('ExportarExcel.mp4')" class="btn-playlist-item">
+                        <button onclick="cambiarVideo('ExportarExcel.mp4', this)" class="btn-playlist-item">
                             <i class="fas fa-file-excel"></i> <span>Demo: Reporte Excel Nativo</span>
                         </button>
                     </div>
@@ -112,10 +112,25 @@
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="AppNotas.PNG" alt="Captura del Proyecto 2" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); object-fit: cover;">
+            <div class="project-card" style="flex: 1; min-width: 300px; max-width: 550px;">
+                <div class="project-image" style="display: flex; flex-direction: column; gap: 15px;">
+                    <video controls poster="AppNotas.PNG" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+                        <source src="AppNotasVideos/FlujoExitoso.mp4" type="video/mp4">
+                        Tu navegador no soporta videos.
+                    </video>
+                    <div class="video-controls-playlist" style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+                        <button onclick="cambiarVideo('AppNotasVideos/FlujoExitoso.mp4', this)" class="btn-playlist-item active">
+                            <i class="fas fa-check-circle"></i> <span>Demo: Flujo Exitoso</span>
+                        </button>
+                        <button onclick="cambiarVideo('AppNotasVideos/FaltanDatos.mp4', this)" class="btn-playlist-item">
+                            <i class="fas fa-exclamation-triangle"></i> <span>Demo: Validaciones de Errores</span>
+                        </button>
+                        <button onclick="cambiarVideo('AppNotasVideos/BaseDeDatos.mp4', this)" class="btn-playlist-item">
+                            <i class="fas fa-file-excel"></i> <span>Demo: Integración con MySQL</span>
+                        </button>
+                    </div>
                 </div>
+                
                 <div class="project-info" style="margin-top: 20px;">
                     <h3>App de Notas</h3>
                     <p>Una aplicación web completa (SPA) para la gestión de notas personales. Este proyecto fue desarrollado como una solución Fullstack, permitiendo realizar todas las operaciones CRUD (Crear, Leer, Actualizar y Eliminar) interactuando en tiempo real con una base de datos relacional.</p>
@@ -203,8 +218,7 @@
     <footer>
         <p>&copy; 2026 - Desarrollado por Rocio</p>
     </footer>
-
-    <!-- SCRIPTS -->
+    
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         particlesJS("particles-js", {
@@ -245,15 +259,13 @@
             "retina_detect": true
         });
 
-        function cambiarVideo(archivo) {
-            const player = document.getElementById('videoPlayer');
+        function cambiarVideo(archivo, boton) {
+            const contenedor = boton.closest('.project-image');
+            const player = contenedor.querySelector('video');
             player.src = archivo;
             player.play();
-            
-            if(window.event && window.event.currentTarget) {
-                window.event.currentTarget.parentElement.querySelectorAll('.btn-playlist-item').forEach(b => b.classList.remove('active'));
-                window.event.currentTarget.classList.add('active');
-            }
+            contenedor.querySelectorAll('.btn-playlist-item').forEach(b => b.classList.remove('active'));
+            boton.classList.add('active');
         }
     </script>
 </body>
